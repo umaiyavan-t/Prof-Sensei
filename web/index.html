@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Sensei - Microlearning Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-container">
+            <h1>Prof. Sensei</h1>
+            <p class="subtitle">Your AI-Powered Microlearning Companion</p>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('register')">Register</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <input type="text" id="register-name" placeholder="Full Name" required>
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            
+            <div id="auth-message" class="message"></div>
+        </div>
+    </div>
+    
+    <!-- Main App Screen -->
+    <div id="app-screen" class="screen">
+        <!-- Header -->
+        <header class="header">
+            <h1>Prof. Sensei</h1>
+            <div class="header-right">
+                <span id="user-name">Welcome!</span>
+                <button class="btn btn-secondary" onclick="showDashboard()">📊 Dashboard</button>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Learning Modes</h3>
+                <button class="mode-btn" data-mode="lesson">Lesson</button>
+                <button class="mode-btn" data-mode="flashcards">Flashcards</button>
+                <button class="mode-btn" data-mode="quiz">Quiz</button>
+                <button class="mode-btn" data-mode="notes">Notes</button>
+                
+                <div class="sidebar-section">
+                    <h3>Actions</h3>
+                    <button class="btn btn-outline" onclick="viewHistory()">View History</button>
+                    <button class="btn btn-outline" onclick="exportChat()">Export (.docx)</button>
+                    <button class="btn btn-outline" onclick="clearChat()">🗑️ Clear Chat</button>
+                </div>
+            </aside>
+            
+            <!-- Chat Area -->
+            <main class="chat-area">
+                <div id="chat-container" class="chat-container">
+                    <div class="welcome-message">
+                        <h2>Welcome to Prof. Sensei! </h2>
+                        <p>Choose a learning mode from the sidebar and enter a topic to get started.</p>
+                    </div>
+                </div>
+                
+                <!-- Input Area -->
+                <div class="input-area">
+                    <input type="text" id="topic-input" placeholder="Enter a topic (e.g., Photosynthesis, Python loops, World War II)...">
+                    <button id="send-btn" class="btn btn-primary" onclick="generateContent()">Generate</button>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Dashboard Modal -->
+    <div id="dashboard-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDashboard()">&times;</span>
+            <h2>📊 Your Progress Dashboard</h2>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Total Sessions</h3>
+                    <p id="stat-sessions" class="stat-number">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Cards Mastered</h3>
+                    <p id="stat-cards" class="stat-number">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Member Since</h3>
+                    <p id="stat-member" class="stat-number">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Flashcard Review Modal -->
+    <div id="flashcard-modal" class="modal">
+        <div class="modal-content flashcard-container">
+            <span class="close" onclick="closeFlashcards()">&times;</span>
+            <h2>🧠 Flashcard Review</h2>
+            <div class="flashcard-display">
+                <div id="flashcard" class="flashcard" onclick="flipCard()">
+                    <div class="flashcard-content">
+                        <p id="flashcard-text">Click to start</p>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button class="btn btn-secondary" onclick="prevCard()">← Previous</button>
+                    <span id="card-counter">0 / 0</span>
+                    <button class="btn btn-secondary" onclick="nextCard()">Next →</button>
+                </div>
+                <button class="btn btn-success" onclick="markMastered()">✓ Mark as Mastered</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
